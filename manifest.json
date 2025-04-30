@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "GlobalBlack",
+  "version": "1.0",
+  "description": "Advanced universal dark mode that preserves site design integrity",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/darkEngine.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "web_accessible_resources": [{
+    "resources": ["content/colorProcessor.js"],
+    "matches": ["<all_urls>"]
+  }]
+}
