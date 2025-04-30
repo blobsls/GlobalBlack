@@ -170,4 +170,58 @@ class GlobalBlack {
       const hex = color.substring(1);
       if (hex.length === 3) {
         return [
-          parseInt
+          parseInt(hex[0] + hex[0], 16),
+          parseInt(hex[1] + hex[1], 16),
+          parseInt(hex[2] + hex[2], 16),
+          1
+        ];
+      } else if (hex.length === 6 || hex.length === 8) {
+        return [
+          parseInt(hex.substring(0, 2), 16),
+          parseInt(hex.substring(2, 4), 16),
+          parseInt(hex.substring(4, 6), 16),
+          hex.length === 8 ? parseInt(hex.substring(6, 8), 16) / 255 : 1
+        ];
+      }
+    }
+    return null;
+  }
+
+  applyDarkMode() {
+    this.isEnabled = true;
+    this.processElement(document.documentElement);
+    this.walkDOM(document.body);
+  }
+
+  disableDarkMode() {
+    this.isEnabled = false;
+    // Remove all our style modifications
+    document.querySelectorAll('[data-globalblack]').forEach(el => {
+      el.removeAttribute('data-globalblack');
+      el.removeAttribute('style');
+    });
+  }
+
+  walkDOM(node) {
+    if (this.shouldSkipElement(node)) return;
+    
+    this.processElement(node);
+    
+    node = node.firstChild;
+    while (node) {
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        this.walkDOM(node);
+      }
+      node = node.nextSibling;
+    }
+  }
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    window.globalBlack = new GlobalBlack();
+  });
+} else {
+  window.globalBlack = new GlobalBlack();
+}
