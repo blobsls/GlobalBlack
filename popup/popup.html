@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>GlobalBlack Settings</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>GlobalBlack</h1>
+      <div class="toggle-switch">
+        <input type="checkbox" id="globalToggle">
+        <label for="globalToggle"></label>
+      </div>
+    </header>
+    
+    <div class="settings-panel">
+      <div class="setting-group">
+        <h2>Mode</h2>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="mode" value="smart" checked>
+            <span>Smart Mode</span>
+          </label>
+          <label>
+            <input type="radio" name="mode" value="aggressive">
+            <span>Aggressive Mode</span>
+          </label>
+          <label>
+            <input type="radio" name="mode" value="subtle">
+            <span>Subtle Mode</span>
+          </label>
+        </div>
+      </div>
+      
+      <div class="setting-group">
+        <h2>Adjustments</h2>
+        <div class="slider-control">
+          <label for="brightness">Brightness</label>
+          <input type="range" id="brightness" min="-30" max="0" value="-20">
+          <span class="value" id="brightnessValue">-20%</span>
+        </div>
+        <div class="slider-control">
+          <label for="contrast">Contrast</label>
+          <input type="range" id="contrast" min="80" max="120" value="90">
+          <span class="value" id="contrastValue">90%</span>
+        </div>
+        <div class="slider-control">
+          <label for="sepia">Sepia</label>
+          <input type="range" id="sepia" min="0" max="20" value="10">
+          <span class="value" id="sepiaValue">10%</span>
+        </div>
+      </div>
+      
+      <div class="setting-group">
+        <h2>Exclusions</h2>
+        <div class="exclusion-control">
+          <input type="text" id="excludeSelector" placeholder="CSS selector (e.g., .light-mode)">
+          <button id="addExclusion">Add</button>
+        </div>
+        <div class="exclusion-list" id="exclusionList"></div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <button id="applySettings">Apply Settings</button>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
